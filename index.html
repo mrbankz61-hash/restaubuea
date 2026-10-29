@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#13120F" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!--head-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap"
+      />
+    </noscript>
+    <script>
+      // Runs before first paint: pick the language and the layout mode so nothing flashes.
+      (function () {
+        var d = document.documentElement;
+        var lang = null;
+        try { lang = localStorage.getItem('ndole.lang'); } catch (e) {}
+        if (lang !== 'en' && lang !== 'fr') {
+          lang = String(navigator.language || 'en').slice(0, 2).toLowerCase() === 'fr' ? 'fr' : 'en';
+        }
+        d.lang = lang;
+        d.classList.remove('no-js');
+        d.classList.add('js');
+        var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        d.classList.add(reduce ? 'mode-flow' : 'mode-journey');
+      })();
+    </script>
+    <style>
+      html, body { background: #13120F; color: #F4EAD5; margin: 0; }
+      html[lang='en'] .l[lang='fr'], html[lang='fr'] .l[lang='en'] { display: none !important; }
+      .loader { position: fixed; inset: 0; z-index: 100; display: grid; place-content: center; justify-items: center;
+        gap: 14px; background: #13120F; transition: opacity .6s ease, visibility .6s; }
+      .no-js .loader, .loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+      .loader__svg { width: 104px; height: 104px; overflow: visible; }
+      .loader__track, .loader__ring { fill: none; stroke-width: 3; }
+      .loader__track { stroke: rgba(244, 234, 213, .12); }
+      .loader__ring { stroke: #E8B04B; stroke-linecap: round; stroke-dasharray: 326.73; stroke-dashoffset: 300;
+        transform: rotate(-90deg); transform-origin: 60px 60px; transition: stroke-dashoffset .35s ease; }
+      .loader__bowl { fill: #C2410C; }
+      .loader__foot { stroke: #C2410C; stroke-width: 4; stroke-linecap: round; }
+      .loader__steam path { fill: none; stroke: #F4EAD5; stroke-width: 2.4; stroke-linecap: round; opacity: 0;
+        animation: steam 1.6s ease-in-out infinite; }
+      .loader__steam path:nth-child(2) { animation-delay: .3s; }
+      .loader__steam path:nth-child(3) { animation-delay: .6s; }
+      .loader__label { margin: 0; font: 500 12px/1 system-ui, sans-serif; letter-spacing: .18em; text-transform: uppercase;
+        color: rgba(244, 234, 213, .6); }
+      @keyframes steam { 0% { opacity: 0; transform: translateY(4px); } 40% { opacity: .9; } 100% { opacity: 0; transform: translateY(-8px); } }
+      @media (prefers-reduced-motion: reduce) { .loader__steam path { animation: none; opacity: .7; } }
+    </style>
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true"></div>
+    <canvas class="gl" id="gl" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <!--body-->
+    <script nomodule>
+      document.documentElement.classList.remove('mode-journey');
+      document.documentElement.classList.add('mode-flow', 'no-webgl');
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
